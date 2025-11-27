@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>To do List</h1>
+        <button id="addNoteBtn">Add Note</button>
+ 
+        <div id="addNoteDiv">
+        <input type="text" id="noteField"  placeholder="Add whats in your mind"/>
+        <button id="submitNote">submitNote </button>
+        </div>
+
+        <ul id="noteList"></ul>
+
+    </body> 
+
+    <footer>
+
+    </footer>
+</html>
+<script>
+    let notes = [];
+    
+    document.getElementById("addNoteBtn").addEventListener("click", function() {
+        document.getElementById("addNoteDiv").style.display="block";
+    });
+   
+    document.getElementById("submitNote").addEventListener("click", function() {
+        let value = document.getElementById("noteField").value.trim();
+        if (value !== ""){ // ! is important in checking value to make sure that the value is not empty ! means not 
+            notes.push(value);
+            displayList();
+            console.log(notes);
+
+        }
+       else {
+        console.log("Something went wrong");
+       }
+    });
+    document.getElementById("noteList").addEventListener("click", function(e) {
+        if (e.target.tagName == 'BUTTON'){
+            let li = e.target.closest('li');
+        
+            let i = notes.indexOf(li);
+            notes.splice(i);
+            li.remove();
+        }
+        
+    });
+   
+
+    function displayList(){
+        let list = document.getElementById("noteList");
+        list.innerHTML="";
+
+        for (let i = 0; i <notes.length; i++){
+            let li = document.createElement("li");
+            li.textContent = notes[i];
+            list.appendChild(li);
+            let btn = document.createElement("button");
+            btn.textContent = "Delete"
+            li.appendChild(btn);
+         
+        }            
+    }
+</script>
